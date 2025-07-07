@@ -1,0 +1,43 @@
+FROM ubuntu:focal
+
+LABEL maintainer="kioz.wang (never.had@outlook.com)"
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+ENV TZ=Asia/Shanghai
+
+RUN sed -i 's/#force_color_prompt=yes/force_color_prompt=yes/g' /root/.bashrc \
+&& sed -i 's/archive\.ubuntu\.com/mirrors\.tuna\.tsinghua\.edu\.cn/g;s/security\.ubuntu\.com/mirrors\.tuna\.tsinghua\.edu\.cn/g' /etc/apt/sources.list \
+&& apt update \
+&& apt -y install apt-utils dialog \
+&& apt -y upgrade \
+&& ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone \
+&& apt -y install tzdata
+
+RUN apt -y install wget xz-utils
+
+RUN apt -y install vim
+COPY .vimrc /root/
+
+RUN apt -y install openssh-server \
+&& echo '\n\
+PermitRootLogin yes\n'\
+>> /etc/ssh/sshd_config \
+&& sed -i 's/#Port 22/Port 10022/g' /etc/ssh/sshd_config \
+&& apt -y install iproute2 \
+&& echo "root:123" | chpasswd
+
+RUN apt -y install python3-pip \
+&& pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+
+RUN apt -y install cmake libncursesw5
+
+RUN wget -qO- 'https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-arm-none-linux-gnueabihf.tar.xz?rev=9d73bfdd64a34550b9ec38a5ead7c01a&hash=774AAE1A6D6996CFB89FD7E367C0B59B' | tar -C /opt/ -xJvf -
+RUN wget -qO- 'https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-aarch64-none-linux-gnu.tar.xz?rev=cf8baa0ef2e54e9286f0409cdda4f66c&hash=4E1BA6BFC2C09EA04DBD36C393C9DD3A' | tar -C /opt/ -xJvf -
+
+COPY .launch.sh /root/
+RUN chmod u+x /root/.launch.sh
+
+WORKDIR /root
+
+CMD [ "/root/.launch.sh" ]
