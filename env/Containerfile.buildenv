@@ -46,6 +46,8 @@ RUN echo "[ -f /opt/.toolchain.env.sh ] && source /opt/.toolchain.env.sh" >>/roo
 COPY .launch.sh /root/
 RUN chmod u+x /root/.launch.sh
 
+ENV LC_ALL=C.UTF-8
+
 WORKDIR /root
 
 CMD [ "/root/.launch.sh" ]
