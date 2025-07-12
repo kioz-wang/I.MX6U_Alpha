@@ -6,7 +6,7 @@ declare -r P_ROOT=$(dirname "${P_ENV}")
 declare -r N_ROOT=$(basename "${P_ROOT}")
 
 function build() {
-    podman build --http-proxy=false --build-arg-file "${P_ENV}"/argfile.conf --tag kioz0wang/buildenv:1.0 -f "${P_ENV}"/Containerfile.buildenv
+    podman build --http-proxy=false --build-arg-file "${P_ENV}"/argfile.conf --tag kioz0wang/buildenv:1.0 -f "${P_ENV}"/Containerfile
 }
 
 function create() {

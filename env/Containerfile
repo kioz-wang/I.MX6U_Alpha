@@ -36,13 +36,6 @@ EXPOSE 10022
 RUN apt update && apt -y upgrade \
     && rm -rf /var/lib/apt/lists/*
 
-RUN apt update && apt -y install wget xz-utils \
-    && rm -rf /var/lib/apt/lists/*
-RUN wget -q --show-progress --progress=bar:force -O- 'https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-arm-none-linux-gnueabihf.tar.xz?rev=9d73bfdd64a34550b9ec38a5ead7c01a&hash=774AAE1A6D6996CFB89FD7E367C0B59B' | tar -C /opt/ -xJf -
-RUN wget -q --show-progress --progress=bar:force -O- 'https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-aarch64-none-linux-gnu.tar.xz?rev=cf8baa0ef2e54e9286f0409cdda4f66c&hash=4E1BA6BFC2C09EA04DBD36C393C9DD3A' | tar -C /opt/ -xJf -
-COPY .toolchain.env.sh /opt/
-RUN echo "[ -f /opt/.toolchain.env.sh ] && source /opt/.toolchain.env.sh" >>/root/.bashrc
-
 COPY .launch.sh /root/
 RUN chmod u+x /root/.launch.sh
 
@@ -51,3 +44,15 @@ ENV LC_ALL=C.UTF-8
 WORKDIR /root
 
 CMD [ "/root/.launch.sh" ]
+
+COPY .toolchain.env.sh /opt/.toolchain.env
+RUN echo "source /opt/.toolchain.env" >>/root/.bashrc
+
+RUN wget -q --show-progress --progress=bar:force -O- 'https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-arm-none-eabi.tar.xz' | tar -C /opt/ -xJf -
+RUN wget -q --show-progress --progress=bar:force -O- 'https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-arm-none-linux-gnueabihf.tar.xz' | tar -C /opt/ -xJf -
+RUN wget -q --show-progress --progress=bar:force -O- 'https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-aarch64-none-linux-gnu.tar.xz' | tar -C /opt/ -xJf -
+COPY .toolchain.env.d/* /opt/.toolchain.env.d/
+# Please refer to the Release Note (linked from this page), for the full installation instructions, build instructions and known issues.
+# https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads
+RUN apt update && apt -y install cmake libncursesw5 python3-pyocd \
+    && rm -rf /var/lib/apt/lists/*
