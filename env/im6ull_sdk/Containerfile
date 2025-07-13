@@ -1,0 +1,3 @@
+FROM localhost/kioz0wang/build.arm_gnu:latest
+
+ADD data.tar.gz /opt/SDK_2.2_MCIM6ULL/

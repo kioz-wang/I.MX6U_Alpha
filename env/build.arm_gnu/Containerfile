@@ -1,0 +1,10 @@
+FROM localhost/kioz0wang/build.base:latest
+
+RUN wget -q --show-progress --progress=bar:force -O- 'https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-arm-none-eabi.tar.xz' | tar -C /opt/ -xJf -
+RUN wget -q --show-progress --progress=bar:force -O- 'https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-arm-none-linux-gnueabihf.tar.xz' | tar -C /opt/ -xJf -
+RUN wget -q --show-progress --progress=bar:force -O- 'https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-aarch64-none-linux-gnu.tar.xz' | tar -C /opt/ -xJf -
+COPY .toolchain.env.d/* /opt/.toolchain.env.d/
+# Please refer to the Release Note (linked from this page), for the full installation instructions, build instructions and known issues.
+# https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads
+RUN apt update && apt -y install cmake libncursesw5 python3-pyocd \
+    && rm -rf /var/lib/apt/lists/*

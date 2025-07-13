@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# shellcheck disable=SC2155
+declare -r P_TARGET=$(realpath "${BASH_SOURCE[0]%/*}")
+
+declare -r P_ROOT=$1
+
+declare -r sour="${P_ROOT}/doc/local/07、I.MX6U参考资料/03、I.MX6ULL SDK包/SDK_2.2_MCIM6ULL_RFP_Linux.run"
+
+if [ ! -f "${sour}" ]; then
+    echo "Depend ${sour} but not found"
+    return 1
+fi
+
+rm -vf "${P_TARGET}/data.tar.gz"
+bash "${sour}" --noexec --tar -f -C "${P_TARGET}" -x ./data.tar.gz
