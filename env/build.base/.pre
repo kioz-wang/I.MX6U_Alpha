@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# shellcheck disable=SC2155
+declare -r P_TARGET=$(realpath "${BASH_SOURCE[0]%/*}")
+
+rm -vf "${P_TARGET}/authorized_keys"
+if [ -f "${HOME}/.ssh/id_rsa.pub" ]; then
+    cp "${HOME}/.ssh/id_rsa.pub" "${P_TARGET}/authorized_keys"
+else
+    touch "${P_TARGET}/authorized_keys"
+fi
+chmod 600 "${P_TARGET}/authorized_keys"
