@@ -1,2 +1,4 @@
 *.zip
-doc/local/
+/doc/local/
+.clangd/
+compile_commands.json
