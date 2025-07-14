@@ -1,4 +1,5 @@
 *.zip
 /doc/local/
+/proj/local/
 .clangd/
 compile_commands.json
