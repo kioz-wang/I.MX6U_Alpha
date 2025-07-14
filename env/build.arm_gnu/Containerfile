@@ -3,7 +3,7 @@ FROM localhost/kioz0wang/build.base:latest
 # Please refer to the Release Note (linked from this page), for the full installation instructions, build instructions and known issues.
 # https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads
 
-RUN wget -q --show-progress --progress=bar:force -O- 'https://developer.arm.com/-/media/Files/downloads/gnu/14.3.Rel1/binrel/arm-gnu-toolchain-14.3.Rel1-x86_64-arm-none-eabi.tar.xz' | tar -C /opt/ -xJf -
-RUN wget -q --show-progress --progress=bar:force -O- 'https://developer.arm.com/-/media/Files/downloads/gnu/14.3.Rel1/binrel/arm-gnu-toolchain-14.3.Rel1-x86_64-arm-none-linux-gnueabihf.tar.xz' | tar -C /opt/ -xJf -
-RUN wget -q --show-progress --progress=bar:force -O- 'https://developer.arm.com/-/media/Files/downloads/gnu/14.3.Rel1/binrel/arm-gnu-toolchain-14.3.Rel1-x86_64-aarch64-none-linux-gnu.tar.xz' | tar -C /opt/ -xJf -
+RUN wget -q --show-progress --progress=bar:force -O- 'https://developer.arm.com/-/media/Files/downloads/gnu/14.3.rel1/binrel/arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-eabi.tar.xz' | tar -C /opt/ -xJf -
+RUN wget -q --show-progress --progress=bar:force -O- 'https://developer.arm.com/-/media/Files/downloads/gnu/14.3.rel1/binrel/arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-linux-gnueabihf.tar.xz' | tar -C /opt/ -xJf -
+RUN wget -q --show-progress --progress=bar:force -O- 'https://developer.arm.com/-/media/Files/downloads/gnu/14.3.rel1/binrel/arm-gnu-toolchain-14.3.rel1-x86_64-aarch64-none-linux-gnu.tar.xz' | tar -C /opt/ -xJf -
 COPY .toolchain.env.d/* /opt/.toolchain.env.d/
