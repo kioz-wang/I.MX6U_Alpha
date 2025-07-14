@@ -1,0 +1,8 @@
+[submodule "u-boot"]
+	path = u-boot
+	url = git@github.com:kioz-wang/uboot-imx.git
+	branch = lf_v2025.04
+[submodule "linux"]
+	path = linux
+	url = git@github.com:kioz-wang/linux-imx.git
+	branch = lf-6.12.y
