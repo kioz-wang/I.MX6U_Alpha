@@ -7,3 +7,6 @@ RUN wget -q --show-progress --progress=bar:force -O- 'https://developer.arm.com/
 RUN wget -q --show-progress --progress=bar:force -O- 'https://developer.arm.com/-/media/Files/downloads/gnu/14.3.rel1/binrel/arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-linux-gnueabihf.tar.xz' | tar -C /opt/ -xJf -
 RUN wget -q --show-progress --progress=bar:force -O- 'https://developer.arm.com/-/media/Files/downloads/gnu/14.3.rel1/binrel/arm-gnu-toolchain-14.3.rel1-x86_64-aarch64-none-linux-gnu.tar.xz' | tar -C /opt/ -xJf -
 COPY .toolchain.env.d/* /opt/.toolchain.env.d/
+
+RUN apt update && apt -y install bc \
+    && rm -rf /var/lib/apt/lists/*
