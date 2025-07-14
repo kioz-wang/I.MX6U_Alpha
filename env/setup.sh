@@ -44,7 +44,7 @@ function create() {
         "${publish[@]}" \
         --volume "${P_ROOT}":"/root/${N_ROOT}" \
         --name "${name}" \
-        localhost/"kioz0wang/${g_target}:${g_tag}" || return $?
+        "kioz0wang/${g_target}:${g_tag}" || return $?
     if [ -n "${ssh_port}" ]; then
         echo "=> start and login root with password [123]"
         echo "  podman start ${name}"
@@ -65,7 +65,7 @@ function run_once() {
     podman run --rm --http-proxy=false --interactive --tty \
         "${publish[@]}" \
         --volume "${P_ROOT}":"/root/${N_ROOT}" \
-        localhost/"kioz0wang/${g_target}:${g_tag}"
+        "kioz0wang/${g_target}:${g_tag}"
 }
 
 function main() {
