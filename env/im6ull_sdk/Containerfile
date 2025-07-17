@@ -1,3 +1,8 @@
-FROM localhost/kioz0wang/build.arm_gnu:latest
+FROM localhost/kioz0wang/build.base:latest
 
 ADD data.tar.gz /opt/SDK_2.2_MCIM6ULL/
+ADD gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabihf.tar.xz /opt/
+COPY .toolchain.env.d/* /opt/.toolchain.env.d/
+
+RUN apt update && apt -y install bc \
+    && rm -rf /var/lib/apt/lists/*

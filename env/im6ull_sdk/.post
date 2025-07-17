@@ -1,6 +1,3 @@
 #!/usr/bin/env bash
 
-# shellcheck disable=SC2155
-declare -r P_TARGET=$(realpath "${BASH_SOURCE[0]%/*}")
-
-rm -v "${P_TARGET}/data.tar.gz"
+rm -v ./data.tar.gz
